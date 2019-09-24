@@ -1,6 +1,6 @@
 /* src/GPSCoordSearch.cpp
-* 
-* 
+*
+*
 * Copyright (C) 2019 Bihemo Kimasa
 *
 * This program is free software: you can redistribute it and/or modify
@@ -43,7 +43,7 @@ GPSCoordSearch::
 {
   verify_search_method();
   const D default_ecoeff{2.0};
-  set_ecoeff(default_ecoeff); 
+  set_ecoeff(default_ecoeff);
   set_pattern(pattern_type);
 }
 
@@ -203,7 +203,9 @@ bool GPSCoordSearch::accept_search_pt()
   {
     set_fx(get_fxnew());
     set_pt(get_ptnew());
+    return true;
   }
+  return false;
 }
 
 } // namespace DTDP
