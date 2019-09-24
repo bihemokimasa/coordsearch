@@ -37,6 +37,8 @@
 #include <iostream>
 #include <fstream>
 
+#include "DynProg.hpp"
+// #include "Array1D.hpp"
 #include "testfunc.hpp"
 
 namespace DTDP
@@ -44,9 +46,6 @@ namespace DTDP
 class CoordSearch
 {
 public:
-  using D = double;
-  using Index = int;
-
   CoordSearch() = default;
   CoordSearch(const CoordSearch &) = default;
   CoordSearch &operator=(const CoordSearch &) = default;
@@ -66,10 +65,11 @@ public:
     inc_fcalls();
   }
 
-  virtual void search();
+  virtual void search(std::ostream &os = std::cout);
   virtual void new_xiter(const std::vector<D> &xbefore, Index i_col, std::vector<D> &xnew);
   virtual void update_pattern() { pattern.sort(); };
-  virtual D fval(const D *x, Index n) const { return Rosebrock(&x[0], n); }
+
+  virtual D fval(D *x, Index n) { return Rosebrock(&x[0], n); }
   virtual Index pattern_size() const { return pattern.get_col_count(); }
   virtual void inc_fcalls(Index step = 1) { fc += step; }
   virtual void poll();
@@ -80,15 +80,15 @@ public:
     os << pattern << std::endl;
   }
 
-  virtual void print_progress(std::ostream &os = std::cout);
-  virtual void print_result(std::ostream &os = std::cout);
+  virtual void print_progress(std::ostream &os);
+  virtual void print_result(std::ostream &os);
 
   void update_slen();
 
   Index get_row_count(Index i_col) const { return pattern.get_row_count(i_col); }
   void set_pattern_fx(Index i_col, D val) { pattern.pat[i_col].first = val; }
 
-  D fval(const std::vector<D> &x) const { return fval(x.data(), x.size()); }
+  D fval(std::vector<D> &x) { return fval(x.data(), x.size()); }
 
   bool poll(Index i, Index &fcalls);
   bool accept_ptnew();

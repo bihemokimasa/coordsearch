@@ -33,6 +33,7 @@
 
 #include <random>
 
+#include "DynProg.hpp"
 #include "CoordSearch.hpp"
 #include "LHSPoint.hpp"
 
@@ -42,9 +43,6 @@ class GPSCoordSearch : virtual public CoordSearch,
                        virtual public LHSPoint
 {
 public:
-  using D = CoordSearch::D;
-  using Index = CoordSearch::Index;
-
   GPSCoordSearch() = default;
   GPSCoordSearch(const GPSCoordSearch &) = default;
   GPSCoordSearch &operator=(const GPSCoordSearch &) = default;
@@ -72,7 +70,7 @@ public:
 
   /* virtual methods */
   virtual void init_fval() override;
-  virtual void search() override;
+  virtual void search(std::ostream &os = std::cout) override;
   virtual void lhs_search();
   // virtual void update_pattern() override { return; /* DON'T pattern.sort();*/ };
   // virtual void set_bounds();
@@ -91,8 +89,10 @@ public:
     NONE
   };
 
-  void verify_search_method();
+  void verify_search_method() const;
   void print_lsh_x(std::ostream &os = std::cout) const;
+
+  bool is_gps_set() const;
 
 private:
   D ls_coeff; /* if unequal zero, a line search method will be used to select the next iterate */

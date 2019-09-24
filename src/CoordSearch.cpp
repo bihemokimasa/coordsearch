@@ -17,7 +17,6 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-
 #include <random>
 #include <iomanip>
 
@@ -60,9 +59,7 @@ CoordSearch::CoordSearch(const D *x0,
                      it_max,
                      fc_max,
                      ecoeff,
-                     ccoeff)}
-{
-}
+                     ccoeff)} {}
 
 CoordSearch::Pattern::Pattern(Index n, Index ptype)
     : pat{vec<std::pair<D, unity_coord>>(
@@ -157,13 +154,10 @@ void CoordSearch::
 std::ostream &operator<<(std::ostream &os,
                          const CoordSearch::Pattern &p)
 {
-  using Index = CoordSearch::Index;
 
   Index nn{p.get_col_count()};
   bool np1_ptype{p.poll_type ==
-                 static_cast<
-                     CoordSearch::
-                         Index>(
+                 static_cast<Index>(
                      CoordSearch::
                          Pattern::
                              Type::GPSNp1)};
@@ -272,7 +266,7 @@ bool CoordSearch::stop()
   return !dont_stop();
 }
 
-std::vector<CoordSearch::D> CoordSearch::
+std::vector<D> CoordSearch::
     copy(const D *x, Index n) const
 {
   std::vector<D> v(n);
@@ -280,7 +274,9 @@ std::vector<CoordSearch::D> CoordSearch::
   return v;
 }
 
-void CoordSearch::copy(const D *x, Index n, std::vector<D> &dest)
+void CoordSearch::copy(const D *x,
+                       Index n,
+                       std::vector<D> &dest)
 {
   std::copy(&x[0], &x[0] + n, std::begin(dest));
 }
@@ -293,7 +289,7 @@ void CoordSearch::
             std::begin(dest));
 }
 
-CoordSearch::Index CoordSearch::
+Index CoordSearch::
     check_range_and_get_idx(Index i,
                             Index low,
                             Index high)
@@ -314,8 +310,7 @@ CoordSearch::Index CoordSearch::
   return i;
 }
 
-CoordSearch::Index
-CoordSearch::Pattern::
+Index CoordSearch::Pattern::
     check_ptype_and_return(Index ptype)
 {
   if (ptype != static_cast<Index>(Type::GPS2N) &&
@@ -330,19 +325,19 @@ CoordSearch::Pattern::
   return ptype;
 }
 
-void CoordSearch::search()
+void CoordSearch::search(std::ostream &os)
 {
-  print_progress();
+  print_progress(os);
   init_fval();
-  print_progress();
+  print_progress(os);
   while (!stop())
   {
     poll();
     update_pattern();
     inc_iters();
-    print_progress();
+    print_progress(os);
   }
-  print_result();
+  print_result(os);
 }
 
 bool CoordSearch::poll(Index i, Index &fcalls)

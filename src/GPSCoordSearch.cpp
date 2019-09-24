@@ -1,6 +1,6 @@
 /* src/GPSCoordSearch.cpp
-*
-*
+* 
+* 
 * Copyright (C) 2019 Bihemo Kimasa
 *
 * This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,6 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-
 #include <iomanip>
 
 #include "GPSCoordSearch.hpp"
@@ -33,7 +32,7 @@ GPSCoordSearch::
                    D line_search_coeff,
                    Index lhs_pt_count,
                    Index search_meth)
-    : CoordSearch(&x0[0], n),
+    : CoordSearch{CoordSearch(&x0[0], n)},
       LHSPoint{(search_meth ==
                 static_cast<Index>(SearchMethod::LHS_SEARCH))
                    ? LHSPoint(n, lhs_pt_count)
@@ -60,14 +59,15 @@ GPSCoordSearch::
                    D line_search_coeff,
                    Index lhs_pt_count,
                    Index search_meth)
-    : CoordSearch(&x0[0],
-                  n,
-                  delta_init,
-                  delta_tol,
-                  it_max,
-                  fc_max,
-                  ecoeff,
-                  ccoeff),
+    : CoordSearch{CoordSearch(
+          &x0[0],
+          n,
+          delta_init,
+          delta_tol,
+          it_max,
+          fc_max,
+          ecoeff,
+          ccoeff)},
       LHSPoint{(search_meth ==
                 static_cast<Index>(SearchMethod::LHS_SEARCH))
                    ? LHSPoint(n, lhs_pt_count)
@@ -79,7 +79,7 @@ GPSCoordSearch::
   set_pattern(pattern_type);
 }
 
-void GPSCoordSearch::verify_search_method()
+void GPSCoordSearch::verify_search_method() const
 {
   if ((search_method != static_cast<Index>(SearchMethod::LINE_SEARCH) &&
        search_method != static_cast<Index>(SearchMethod::LHS_SEARCH)) &&
@@ -87,6 +87,16 @@ void GPSCoordSearch::verify_search_method()
     Exception::error(__FILE__, __LINE__,
                      std::string{"choose either 0 (line search)"} +
                          std::string{" or 1 (latin hs search) for search method."});
+}
+
+bool GPSCoordSearch::is_gps_set() const
+{
+  return (search_method ==
+              static_cast<DTDP::Index>(SearchMethod::LINE_SEARCH) ||
+          get_search_method() ==
+              static_cast<DTDP::Index>(SearchMethod::LHS_SEARCH) ||
+          get_search_method() ==
+              static_cast<DTDP::Index>(SearchMethod::NONE));
 }
 
 void GPSCoordSearch::init_fval()
@@ -103,11 +113,11 @@ void GPSCoordSearch::init_fval()
   }
 }
 
-void GPSCoordSearch::search()
+void GPSCoordSearch::search(std::ostream &os)
 {
-  print_progress();
+  print_progress(os);
   init_fval();
-  print_progress();
+  print_progress(os);
   while (!stop())
   {
     /* try search step */
@@ -133,9 +143,9 @@ void GPSCoordSearch::search()
 
     update_pattern();
     inc_iters();
-    print_progress();
+    print_progress(os);
   }
-  print_result();
+  print_result(os);
 }
 
 void GPSCoordSearch::line_search()

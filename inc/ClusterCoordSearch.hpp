@@ -1,6 +1,6 @@
 /* inc/ClusterCoordSearch.hpp
-* 
-* 
+*
+*
 * Copyright (C) 2019 Bihemo Kimasa
 *
 * This program is free software: you can redistribute it and/or modify
@@ -48,8 +48,8 @@ public:
   virtual void lhs_search() override;
   virtual void update_pattern() override { return; /* DON'T pattern.sort();*/ };
   virtual void print_pattern(std::ostream &os = std::cout) const override;
-  virtual void print_progress(std::ostream &os = std::cout) override;
-  virtual void print_result(std::ostream &os = std::cout) override;
+  virtual void print_progress(std::ostream &os) override;
+  virtual void print_result(std::ostream &os) override;
 
   bool seek_best_nearby(Index &fcalls_local, Index &fcalls);
 
