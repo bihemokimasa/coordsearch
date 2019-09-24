@@ -177,7 +177,7 @@ bool GPSCoordSearch::
     return true;
   }
 
-  LHSPoint::get_nearby_pt(get_ptnew().data(),
+  LHSPoint::get_nearby_pt(get_pt().data(),
                           get_ptnew().data(),
                           get_n(), idx_row);
 
