@@ -95,8 +95,8 @@ public:
   bool is_gps_set() const;
 
 private:
-  D ls_coeff; /* if unequal zero, a line search method will be used to select the next iterate */
-  Index search_method;
+  D ls_coeff{get_infinity()}; /* if unequal zero, a line search method will be used to select the next iterate */
+  Index search_method{std::numeric_limits<int>::max()};
 };
 } // namespace DTDP
 
