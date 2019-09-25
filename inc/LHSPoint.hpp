@@ -85,11 +85,11 @@ public:
   * 
   */
 
-  // constexpr static D default_del_u{0.0075}; /* bounds are set to +/- it if pt(i) = 0 */
-  // constexpr static D default_del_z{0.05};   /* and, otherwise, to pt(i) +/- del_z*pt(i) */
+  constexpr static D default_del_u{0.0075}; /* bounds are set to +/- it if pt(i) = 0 */
+  constexpr static D default_del_z{0.05};   /* and, otherwise, to pt(i) +/- del_z*pt(i) */
 
-  constexpr static D default_del_u{0.075}; /* bounds are set to +/- it if pt(i) = 0 */
-  constexpr static D default_del_z{0.25};   /* and, otherwise, to pt(i) +/- del_z*pt(i) */
+  // constexpr static D default_del_u{0.075}; /* bounds are set to +/- it if pt(i) = 0 */
+  // constexpr static D default_del_z{0.25};   /* and, otherwise, to pt(i) +/- del_z*pt(i) */
 
   /* returns near_pt, a perturbation point near pt 
   * given perturbation factors del_u and del_z
