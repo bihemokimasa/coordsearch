@@ -123,7 +123,11 @@ public:
 
   void inc_iters(Index step = 1) { it += step; }
 
-  void set_init_slen(D val) { par.sl0 = val; }
+  void set_init_slen(D val)
+  {
+    par.sl0 = val;
+    sl = val;
+  }
   void set_min_slen(D val) { par.smin = val; }
   void set_ecoeff(D val) { par.eco = val; }
   void set_ccoeff(D val) { par.cco = val; }

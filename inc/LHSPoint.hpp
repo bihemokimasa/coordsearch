@@ -60,8 +60,8 @@ namespace DTDP
 class LHSPoint
 {
 public:
-  using D = double;
-  using Index = int;
+  // using D = double;
+  // using Index = int;
   using unif_dist = std::uniform_int_distribution<Index>;
 
   LHSPoint() = default;

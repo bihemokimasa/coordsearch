@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
   const int n{2};
   // double x[n] = {-1.2, 1.0};
   double x[n] = {0.5449, 0.2686};
-  const double ini_step{0.5};
+  const double ini_step{0.125};
 
   // DTDP::Index pattern_type{static_cast<DTDP::Index>(DTDP::CoordSearch::Pattern::Type::GPS2N)};
   DTDP::Index pattern_type{static_cast<DTDP::Index>(DTDP::CoordSearch::Pattern::Type::GPSNp1)};
