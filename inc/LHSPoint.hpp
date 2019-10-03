@@ -95,7 +95,7 @@ public:
   * given perturbation factors del_u and del_z
   * as determinants of lower and upper bounds of the variable
   */
-  void get_nearby_pt(const D *pt,
+  virtual void get_nearby_pt(const D *pt,
                      D *near_pt,
                      Index pt_dim,
                      Index j_lhs_pt, /* point ID in the lhs */

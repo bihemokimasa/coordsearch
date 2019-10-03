@@ -313,7 +313,7 @@ bool ClusterCoordSearch::
     {
       D fxnewmin = ptfxnew[get_n() + t_id * recv_count]; /* temporary */
 
-      if (fxnewmin < get_fxnew())
+      if (fxnewmin < ptfxnew[get_n()])
       {
         ptfxnew[get_n()] = ptfxnew[get_n() + t_id * recv_count];
         for (Index j{0}; j < get_n(); ++j)
